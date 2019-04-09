@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group 'org.cesartxt.adventofcode'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+application {
+    mainClassName = 'org.cesartxt.adventofcode.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
