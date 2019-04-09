@@ -15,6 +15,8 @@ public class Main {
     }
 
     private static void runSolutionDay1() throws FileNotFoundException {
+
+        /* Day1 Puzzle */
         System.out.println("Running Solution for Day 1");
         System.out.println("Reading input for puzzle of Day 1: src/main/resources/day-1-puzzle-input.txt");
         List<Integer> input = processInputFile("src/main/resources/day-1-puzzle-input.txt");
