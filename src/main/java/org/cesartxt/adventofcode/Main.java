@@ -25,16 +25,6 @@ public class Main {
         System.out.println("--------------------");
     }
 
-    private static void runSolutionDay4() throws FileNotFoundException, IllegalAccessException {
-        System.out.println("Running Solution for Day 4");
-        System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
-        List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
-        int answer = Day4.solve(input);
-        System.out.println("Answer Problem Day 4:");
-        System.out.println(answer);
-        System.out.println("--------------------");
-    }
-
     private static List<Integer> readIntegersFromFile(String pathName) throws FileNotFoundException {
         List<Integer> integerList = new ArrayList<>();
         File file = new File(pathName);
@@ -44,6 +34,16 @@ public class Main {
             }
         }
         return integerList;
+    }
+
+    private static void runSolutionDay4() throws FileNotFoundException, IllegalAccessException {
+        System.out.println("Running Solution for Day 4");
+        System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
+        List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
+        int answer = Day4.solve(input);
+        System.out.println("Answer Problem Day 4:");
+        System.out.println(answer);
+        System.out.println("--------------------");
     }
 
     private static List<Day4.Record> readRecordsFromFile(String pathName) throws FileNotFoundException {
