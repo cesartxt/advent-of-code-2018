@@ -36,7 +36,7 @@ public class Main {
         return integerList;
     }
 
-    private static void runSolutionDay4() throws FileNotFoundException, IllegalAccessException {
+    private static void runSolutionDay4() throws FileNotFoundException {
         System.out.println("Running Solution for Day 4");
         System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
         List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
