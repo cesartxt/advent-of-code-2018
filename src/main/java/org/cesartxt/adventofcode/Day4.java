@@ -6,7 +6,7 @@ class Day4 {
     static int solve(List<Record> recordList) {
         List<Guard> guardList = buildGuardList(recordList);
         Guard sleepiestGuard = determineSleepiestGuard(guardList);
-        return sleepiestGuard.determineMinuteMostLikelyToBeAsleep() * sleepiestGuard.id;
+        return sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
     }
 
     private static List<Guard> buildGuardList(List<Record> recordList) {
@@ -17,9 +17,9 @@ class Day4 {
             int guardId = recordList.get(i++).getGuardId();
             Guard guard = idToGuardMap.computeIfAbsent(guardId, Guard::new);
             while (i < recordList.size() && !recordList.get(i).indicatesGuardIsBeggingShift()) {
-                int asleepMinute = recordList.get(i++).getMinutes();
-                int wakeUpMinute = recordList.get(i++).getMinutes();
-                guard.registerSleepMinutes(asleepMinute, wakeUpMinute);
+                int sleepStart = recordList.get(i++).getMinutes();
+                int endStart = recordList.get(i++).getMinutes();
+                guard.registerSleepMinutes(sleepStart, endStart);
             }
         }
         return new ArrayList<>(idToGuardMap.values());
@@ -113,20 +113,20 @@ class Day4 {
             return totalMinutesAsleep;
         }
 
-        int determineMinuteMostLikelyToBeAsleep() {
-            int minuteMostLikelyToBeAsleep = -1;
-            int max = -1;
+        int getMinuteWithMoreSleep() {
+            int minuteWithMoreSleep = -1;
+            int sleepRecord = -1;
             for (int i = 0; i < 60; i++) {
-                if (max < minuteOfHourAsleepCount[i]) {
-                    minuteMostLikelyToBeAsleep = i;
-                    max = minuteOfHourAsleepCount[i];
+                if (sleepRecord < minuteOfHourAsleepCount[i]) {
+                    minuteWithMoreSleep = i;
+                    sleepRecord = minuteOfHourAsleepCount[i];
                 }
             }
-            return minuteMostLikelyToBeAsleep;
+            return minuteWithMoreSleep;
         }
 
-        void registerSleepMinutes(int asleepMinute, int wakeUpMinute) {
-            for (int i = asleepMinute; i < wakeUpMinute; i++) {
+        void registerSleepMinutes(int sleepStart, int sleepEnd) {
+            for (int i = sleepStart; i < sleepEnd; i++) {
                 minuteOfHourAsleepCount[i]++;
             }
         }
