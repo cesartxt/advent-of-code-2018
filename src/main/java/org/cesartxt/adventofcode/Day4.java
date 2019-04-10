@@ -5,7 +5,7 @@ import java.util.*;
 class Day4 {
     static int solve(List<Record> recordList) throws IllegalAccessException {
         recordList.sort(byDateAsc());
-        List<Guard> guardList = processSortedRecord(recordList);
+        List<Guard> guardList = processSortedRecords(recordList);
         Guard guardWithMostAsleepMinutes = getGuardWithMostAsleepMinutes(guardList).orElseThrow(() -> new IllegalArgumentException("There was not information of any Guard"));
         return guardWithMostAsleepMinutes.determineMinuteMostLikelyToBeAsleep() * guardWithMostAsleepMinutes.id;
     }
@@ -18,7 +18,7 @@ class Day4 {
                 .thenComparing(Record::getMinutes);
     }
 
-    private static List<Guard> processSortedRecord(List<Record> recordList) throws IllegalAccessException {
+    private static List<Guard> processSortedRecords(List<Record> recordList) throws IllegalAccessException {
         Map<Integer, Guard> guardIdToGuardMap = new HashMap<>();
         int i = 0;
         while (i < recordList.size()) {
