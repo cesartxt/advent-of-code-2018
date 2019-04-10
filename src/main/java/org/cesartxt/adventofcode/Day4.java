@@ -3,13 +3,13 @@ package org.cesartxt.adventofcode;
 import java.util.*;
 
 class Day4 {
-    static int solve(List<Record> recordList) throws IllegalAccessException {
+    static int solve(List<Record> recordList) {
         List<Guard> guardList = buildGuardList(recordList);
         Guard sleepiestGuard = determineSleepiestGuard(guardList);
         return sleepiestGuard.determineMinuteMostLikelyToBeAsleep() * sleepiestGuard.id;
     }
 
-    private static List<Guard> buildGuardList(List<Record> recordList) throws IllegalAccessException {
+    private static List<Guard> buildGuardList(List<Record> recordList) {
         recordList.sort(byDateAsc());
         int i = 0;
         Map<Integer, Guard> idToGuardMap = new HashMap<>();
@@ -83,7 +83,7 @@ class Day4 {
             return minutes;
         }
 
-        private int getGuardId() throws IllegalAccessException {
+        private int getGuardId() {
             if (!indicatesGuardIsBeggingShift()) {
                 throw new IllegalArgumentException("Record statement doesn't indicate when a guard starts his/her shift");
             }
