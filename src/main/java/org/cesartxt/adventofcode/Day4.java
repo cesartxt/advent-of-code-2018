@@ -20,7 +20,8 @@ class Day4 {
 
     private static List<Guard> processSortedRecord(List<Record> recordList) throws IllegalAccessException {
         Map<Integer, Guard> guardIdToGuardMap = new HashMap<>();
-        for (int i = 0; i < recordList.size();) {
+        int i = 0;
+        while (i < recordList.size()) {
             String beginShiftStatement = recordList.get(i++).statement;
             int guardId = getGuardIdFromBeginShiftStatement(beginShiftStatement);
             Guard guard = guardIdToGuardMap.computeIfAbsent(guardId, Guard::new);
@@ -90,10 +91,6 @@ class Day4 {
 
         int getMinutes() {
             return minutes;
-        }
-
-        public String getStatement() {
-            return statement;
         }
     }
 
