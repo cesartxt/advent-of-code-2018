@@ -5,16 +5,8 @@ import java.util.*;
 class Day4 {
     static int solve(List<Record> recordList) throws IllegalAccessException {
         List<Guard> guardList = buildGuardList(recordList);
-        Guard guardWithMostAsleepMinutes = getGuardWithMostAsleepMinutes(guardList).orElseThrow(() -> new IllegalArgumentException("There was not information of any Guard"));
-        return guardWithMostAsleepMinutes.determineMinuteMostLikelyToBeAsleep() * guardWithMostAsleepMinutes.id;
-    }
-
-    private static Comparator<Record> byDateAsc() {
-        return Comparator.comparing(Record::getYear)
-                .thenComparing(Record::getMonth)
-                .thenComparing(Record::getDay)
-                .thenComparing(Record::getHour)
-                .thenComparing(Record::getMinutes);
+        Guard sleepiestGuard = determineSleepiestGuard(guardList);
+        return sleepiestGuard.determineMinuteMostLikelyToBeAsleep() * sleepiestGuard.id;
     }
 
     private static List<Guard> buildGuardList(List<Record> recordList) throws IllegalAccessException {
@@ -33,18 +25,25 @@ class Day4 {
         return new ArrayList<>(idToGuardMap.values());
     }
 
+    private static Comparator<Record> byDateAsc() {
+        return Comparator.comparing(Record::getYear)
+                .thenComparing(Record::getMonth)
+                .thenComparing(Record::getDay)
+                .thenComparing(Record::getHour)
+                .thenComparing(Record::getMinutes);
+    }
 
-    private static Optional<Guard> getGuardWithMostAsleepMinutes(List<Guard> guardList) {
-        Guard mostMinutesAsleepGuard = null;
-        int mostMinutesAsleep = -1;
+    private static Guard determineSleepiestGuard(List<Guard> guardList) {
+        Guard sleepiestGuard = null;
+        int maxMinutesAsleep = -1;
         for (Guard guard : guardList) {
             int guardTotalMinutesAsleep = guard.getTotalMinutesAsleep();
-            if (guardTotalMinutesAsleep > mostMinutesAsleep) {
-                mostMinutesAsleep = guardTotalMinutesAsleep;
-                mostMinutesAsleepGuard = guard;
+            if (guardTotalMinutesAsleep > maxMinutesAsleep) {
+                maxMinutesAsleep = guardTotalMinutesAsleep;
+                sleepiestGuard = guard;
             }
         }
-        return mostMinutesAsleepGuard == null ? Optional.empty() : Optional.of(mostMinutesAsleepGuard);
+        return sleepiestGuard;
     }
 
     static class Record {
