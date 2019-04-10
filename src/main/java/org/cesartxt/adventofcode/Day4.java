@@ -7,7 +7,7 @@ class Day4 {
         recordList.sort(byDateAsc());
         List<Guard> guardList = processSortedRecord(recordList);
         Guard guardWithMostAsleepMinutes = getGuardWithMostAsleepMinutes(guardList).orElseThrow(() -> new IllegalArgumentException("There was not information of any Guard"));
-        return guardWithMostAsleepMinutes.getTotalMinutesAsleep() * guardWithMostAsleepMinutes.id;
+        return guardWithMostAsleepMinutes.determineMinuteMostLikelyToBeAsleep() * guardWithMostAsleepMinutes.id;
     }
 
     private static Comparator<Record> byDateAsc() {
@@ -20,14 +20,15 @@ class Day4 {
 
     private static List<Guard> processSortedRecord(List<Record> recordList) throws IllegalAccessException {
         Map<Integer, Guard> guardIdToGuardMap = new HashMap<>();
-        Iterator<Record> it = recordList.iterator();
-        while (it.hasNext()) {
-            String beginShiftStatement = it.next().statement;
+        for (int i = 0; i < recordList.size();) {
+            String beginShiftStatement = recordList.get(i++).statement;
             int guardId = getGuardIdFromBeginShiftStatement(beginShiftStatement);
             Guard guard = guardIdToGuardMap.computeIfAbsent(guardId, Guard::new);
-            int asleepMinute = it.next().getMinutes();
-            int wakeUpMinute = it.next().getMinutes();
-            guard.registerSleepMinutes(asleepMinute, wakeUpMinute);
+            while (i < recordList.size() && !recordList.get(i).statement.startsWith("Guard #")) {
+                int asleepMinute = recordList.get(i++).getMinutes();
+                int wakeUpMinute = recordList.get(i++).getMinutes();
+                guard.registerSleepMinutes(asleepMinute, wakeUpMinute);
+            }
         }
         return new ArrayList<>(guardIdToGuardMap.values());
     }
@@ -90,11 +91,15 @@ class Day4 {
         int getMinutes() {
             return minutes;
         }
+
+        public String getStatement() {
+            return statement;
+        }
     }
 
     static class Guard {
         private final int id;
-        private final int[] minuteOfHourAsleepCount = new int[59];
+        private final int[] minuteOfHourAsleepCount = new int[60];
 
         Guard(int id) {
             this.id = id;
@@ -106,6 +111,18 @@ class Day4 {
                 totalMinutesAsleep += minutes;
             }
             return totalMinutesAsleep;
+        }
+
+        int determineMinuteMostLikelyToBeAsleep() {
+            int minuteMostLikelyToBeAsleep = -1;
+            int max = -1;
+            for (int i = 0; i < 60; i++) {
+                if (max < minuteOfHourAsleepCount[i]) {
+                    minuteMostLikelyToBeAsleep = i;
+                    max = minuteOfHourAsleepCount[i];
+                }
+            }
+            return minuteMostLikelyToBeAsleep;
         }
 
         void registerSleepMinutes(int asleepMinute, int wakeUpMinute) {
