@@ -2,7 +2,6 @@ package org.cesartxt.adventofcode;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class Day4Test {
     @Test
-    public void testGetGuardTotalMinutesAsleep() throws IllegalAccessException {
+    public void test0() {
         Day4.Record record1 = new Day4.Record(2019, 1, 1, 0, 0, "Guard #1 begins shift");
         Day4.Record record2 = new Day4.Record(2019, 1, 1, 0, 10, "falls asleep");
         Day4.Record record3 = new Day4.Record(2019, 1, 1, 0, 29, "wakes up");
@@ -24,6 +23,6 @@ public class Day4Test {
         Day4.Record record11 = new Day4.Record(2019, 1, 3, 0, 13, "wakes up");
 
         List<Day4.Record> recordList = Arrays.asList(record4, record7, record1, record9, record11, record5, record8, record2, record10, record6, record3);
-        assertEquals(1 * 10, Day4.solve(recordList));
+        assertEquals(10, Day4.solve(recordList));//Expected answer is 10 because Guard 1 is the sleepiest and sleeps more in minute 10 (1 * 10)
     }
 }
