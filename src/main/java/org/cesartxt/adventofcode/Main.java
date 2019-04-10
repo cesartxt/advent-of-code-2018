@@ -12,10 +12,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, IllegalAccessException {
         runSolutionDay1();
+        runSolutionDay4();
     }
 
-    private static void runSolutionDay1() throws FileNotFoundException, IllegalAccessException {
-        /* Day1 Puzzle */
+    private static void runSolutionDay1() throws FileNotFoundException {
         System.out.println("Running Solution for Day 1");
         System.out.println("Reading input for puzzle of Day 1: src/main/resources/day-1-puzzle-input.txt");
         List<Integer> input = readIntegersFromFile("src/main/resources/day-1-puzzle-input.txt");
@@ -23,13 +23,15 @@ public class Main {
         System.out.println("Answer Problem Day 1:");
         System.out.println(answer);
         System.out.println("--------------------");
+    }
 
+    private static void runSolutionDay4() throws FileNotFoundException, IllegalAccessException {
         System.out.println("Running Solution for Day 4");
         System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
-        List<Day4.Record> input2 = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
-        int answer2 = Day4.solve(input2);
+        List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
+        int answer = Day4.solve(input);
         System.out.println("Answer Problem Day 4:");
-        System.out.println(answer2);
+        System.out.println(answer);
         System.out.println("--------------------");
     }
 
@@ -50,6 +52,7 @@ public class Main {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String recordAsString = scanner.nextLine();
+                //Example record: [1518-11-02 23:56] Guard #3463 begins shift
                 int year = Integer.parseInt(recordAsString.substring(1, 5));
                 int month = Integer.parseInt(recordAsString.substring(6, 8));
                 int day = Integer.parseInt(recordAsString.substring(9, 11));
