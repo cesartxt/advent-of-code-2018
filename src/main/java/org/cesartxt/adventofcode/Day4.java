@@ -85,7 +85,7 @@ class Day4 {
 
         private int getGuardId() throws IllegalAccessException {
             if (!indicatesGuardIsBeggingShift()) {
-                throw new IllegalAccessException("Record statement doesn't indicate when a guard starts his/her shift");
+                throw new IllegalArgumentException("Record statement doesn't indicate when a guard starts his/her shift");
             }
             String[] statementTokens = statement.split("\\s");
             String guardIdAsString = statementTokens[1].substring(1); // Guard id is the second token of the statement. Removing first character from it that is a '#'
