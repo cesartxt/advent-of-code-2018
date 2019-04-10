@@ -4,8 +4,7 @@ import java.util.*;
 
 class Day4 {
     static int solve(List<Record> recordList) throws IllegalAccessException {
-        recordList.sort(byDateAsc());
-        List<Guard> guardList = processSortedRecords(recordList);
+        List<Guard> guardList = buildGuardList(recordList);
         Guard guardWithMostAsleepMinutes = getGuardWithMostAsleepMinutes(guardList).orElseThrow(() -> new IllegalArgumentException("There was not information of any Guard"));
         return guardWithMostAsleepMinutes.determineMinuteMostLikelyToBeAsleep() * guardWithMostAsleepMinutes.id;
     }
@@ -18,30 +17,22 @@ class Day4 {
                 .thenComparing(Record::getMinutes);
     }
 
-    private static List<Guard> processSortedRecords(List<Record> recordList) throws IllegalAccessException {
-        Map<Integer, Guard> guardIdToGuardMap = new HashMap<>();
+    private static List<Guard> buildGuardList(List<Record> recordList) throws IllegalAccessException {
+        recordList.sort(byDateAsc());
         int i = 0;
+        Map<Integer, Guard> idToGuardMap = new HashMap<>();
         while (i < recordList.size()) {
-            String beginShiftStatement = recordList.get(i++).statement;
-            int guardId = getGuardIdFromBeginShiftStatement(beginShiftStatement);
-            Guard guard = guardIdToGuardMap.computeIfAbsent(guardId, Guard::new);
-            while (i < recordList.size() && !recordList.get(i).statement.startsWith("Guard #")) {
+            int guardId = recordList.get(i++).getGuardId();
+            Guard guard = idToGuardMap.computeIfAbsent(guardId, Guard::new);
+            while (i < recordList.size() && !recordList.get(i).indicatesGuardIsBeggingShift()) {
                 int asleepMinute = recordList.get(i++).getMinutes();
                 int wakeUpMinute = recordList.get(i++).getMinutes();
                 guard.registerSleepMinutes(asleepMinute, wakeUpMinute);
             }
         }
-        return new ArrayList<>(guardIdToGuardMap.values());
+        return new ArrayList<>(idToGuardMap.values());
     }
 
-    private static int getGuardIdFromBeginShiftStatement(String statement) throws IllegalAccessException {
-        if (!statement.endsWith(" begins shift")) {
-            throw new IllegalAccessException("Given statement doesn't indicate when a guard starts his/her shift");
-        }
-        String[] statementTokens = statement.split("\\s");
-        String guardIdAsString = statementTokens[1].substring(1); // Guard id is the second token of the statement. Removing first character from it that is a '#'
-        return Integer.parseInt(guardIdAsString);
-    }
 
     private static Optional<Guard> getGuardWithMostAsleepMinutes(List<Guard> guardList) {
         Guard mostMinutesAsleepGuard = null;
@@ -57,12 +48,12 @@ class Day4 {
     }
 
     static class Record {
-        int year;
-        int month;
-        int day;
-        int hour;
-        int minutes;
-        String statement;
+        private final int year;
+        private final int month;
+        private final int day;
+        private final int hour;
+        private final int minutes;
+        private final String statement;
 
         Record(int year, int month, int day, int hour, int minutes, String statement) {
             this.year = year;
@@ -91,6 +82,20 @@ class Day4 {
 
         int getMinutes() {
             return minutes;
+        }
+
+
+        private int getGuardId() throws IllegalAccessException {
+            if (!indicatesGuardIsBeggingShift()) {
+                throw new IllegalAccessException("Record statement doesn't indicate when a guard starts his/her shift");
+            }
+            String[] statementTokens = statement.split("\\s");
+            String guardIdAsString = statementTokens[1].substring(1); // Guard id is the second token of the statement. Removing first character from it that is a '#'
+            return Integer.parseInt(guardIdAsString);
+        }
+
+        private boolean indicatesGuardIsBeggingShift() {
+            return statement.endsWith(" begins shift");
         }
     }
 
