@@ -3,36 +3,25 @@ package org.cesartxt.adventofcode;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class Day4Test {
     @Test
-    public void testSortLogEntryListByDateAsc() {
-        String reason = "Method Day4#sortLogEntryListByDateAsc should sort the LogEntry instances contained in the " +
-                "given list by date in ascending order";
+    public void testGetGuardTotalMinutesAsleep() throws IllegalAccessException {
+        Day4.Record record1 = new Day4.Record(2019, 1, 1, 0, 0, "Guard #1 begins shift");
+        Day4.Record record2 = new Day4.Record(2019, 1, 1, 0, 10, "falls asleep");
+        Day4.Record record3 = new Day4.Record(2019, 1, 1, 0, 29, "wakes up");
+        Day4.Record record4 = new Day4.Record(2019, 1, 1, 23, 57, "Guard #2 begins shift");
+        Day4.Record record5 = new Day4.Record(2019, 1, 2, 0, 1, "falls asleep");
+        Day4.Record record6 = new Day4.Record(2019, 1, 2, 0, 59, "wakes up");
+        Day4.Record record7 = new Day4.Record(2019, 1, 2, 23, 52, "Guard #1 begins shift");
+        Day4.Record record8 = new Day4.Record(2019, 1, 3, 0, 10, "falls asleep");
+        Day4.Record record9 = new Day4.Record(2019, 1, 3, 0, 13, "wakes up");
 
-        Day4.LogEntry entry1 = new Day4.LogEntry(2019, 1, 2, 12, 20);
-        Day4.LogEntry entry2 = new Day4.LogEntry(2018, 12, 20, 1, 34);
-        Day4.LogEntry entry3 = new Day4.LogEntry(2019, 3, 3, 2, 12);
-        Day4.LogEntry entry4 = new Day4.LogEntry(2018, 12, 20, 1, 33);
-        Day4.LogEntry entry5 = new Day4.LogEntry(2019, 2, 28, 13, 24);
-
-        List<Day4.LogEntry> logEntryList = new ArrayList<>();
-        logEntryList.add(entry1);
-        logEntryList.add(entry2);
-        logEntryList.add(entry3);
-        logEntryList.add(entry4);
-        logEntryList.add(entry5);
-
-        Day4.sortLogEntryListByDateAsc(logEntryList);
-
-        assertEquals(reason, entry4, logEntryList.get(0));
-        assertEquals(reason, entry2, logEntryList.get(1));
-        assertEquals(reason, entry1, logEntryList.get(2));
-        assertEquals(reason, entry5, logEntryList.get(3));
-        assertEquals(reason, entry3, logEntryList.get(4));
+        List<Day4.Record> recordList = Arrays.asList(record4, record7, record1, record9, record5, record8, record2, record6, record3);
+        assertEquals(2 * 58, Day4.solve(recordList));
     }
-
 }
