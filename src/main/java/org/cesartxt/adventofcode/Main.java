@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Run some solved puzzles for the Advent of Code 2018.
  */
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException, IllegalAccessException {
+    public static void main(String[] args) throws FileNotFoundException {
         runSolutionDay1();
         runSolutionDay4();
     }
