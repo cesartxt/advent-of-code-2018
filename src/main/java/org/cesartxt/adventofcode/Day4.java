@@ -83,7 +83,6 @@ class Day4 {
             return minutes;
         }
 
-
         private int getGuardId() throws IllegalAccessException {
             if (!indicatesGuardIsBeggingShift()) {
                 throw new IllegalAccessException("Record statement doesn't indicate when a guard starts his/her shift");
