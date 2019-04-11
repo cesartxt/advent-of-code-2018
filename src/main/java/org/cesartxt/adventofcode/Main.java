@@ -20,9 +20,13 @@ public class Main {
         System.out.println("Running Solution for Day 1");
         System.out.println("Reading input for puzzle of Day 1: src/main/resources/day-1-puzzle-input.txt");
         List<Integer> input = readIntegersFromFile("src/main/resources/day-1-puzzle-input.txt");
-        int answer = Day1.calculateFrequency(input);
-        System.out.println("Answer Problem Day 1:");
-        System.out.println(answer);
+        System.out.println("Answers Problem Day 1:");
+        System.out.println("Part 1:");
+        int part1Answer = Day1.part1(input);
+        System.out.println(part1Answer);
+        System.out.println("Part 2:");
+        int part2Answer = Day1.part2(input);
+        System.out.println(part2Answer);
         System.out.println("--------------------");
     }
 

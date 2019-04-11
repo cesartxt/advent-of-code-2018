@@ -11,44 +11,48 @@ import static org.junit.Assert.assertThat;
 
 public class Day1Test {
     @Test
-    public void test0() {
+    public void testPart1() {
         List<Integer> frequencyChanges = Arrays.asList(+1, +1, +1);
-        int frequency = Day1.calculateFrequency(frequencyChanges);
+        int frequency = Day1.part1(frequencyChanges);
         assertThat(frequency, is(3));
-    }
 
-    @Test
-    public void test1() {
-        List<Integer> frequencyChanges = Arrays.asList(+1, +1, -2);
-        int frequency = Day1.calculateFrequency(frequencyChanges);
+        frequencyChanges = Arrays.asList(+1, +1, -2);
+        frequency = Day1.part1(frequencyChanges);
         assertThat(frequency, is(0));
-    }
 
-    @Test
-    public void test2() {
-        List<Integer> frequencyChanges = Arrays.asList(-1, -2, -3);
-        int frequency = Day1.calculateFrequency(frequencyChanges);
+        frequencyChanges = Arrays.asList(-1, -2, -3);
+        frequency = Day1.part1(frequencyChanges);
         assertThat(frequency, is(-6));
-    }
 
-    @Test
-    public void test3() {
-        List<Integer> frequencyChanges = Collections.emptyList();
-        int frequency = Day1.calculateFrequency(frequencyChanges);
+        frequencyChanges = Collections.emptyList();
+        frequency = Day1.part1(frequencyChanges);
         assertThat(frequency, is(0));
-    }
 
-    @Test
-    public void test4() {
-        List<Integer> frequencyChanges = Arrays.asList(-7, -19, +18, +19, -10, -12, -19);
-        int frequency = Day1.calculateFrequency(frequencyChanges);
+        frequencyChanges = Arrays.asList(-7, -19, +18, +19, -10, -12, -19);
+        frequency = Day1.part1(frequencyChanges);
         assertThat(frequency, is(-30));
+
+        frequencyChanges = Collections.singletonList(0);
+        frequency = Day1.part1(frequencyChanges);
+        assertThat(frequency, is(0));
     }
 
     @Test
-    public void test5() {
-        List<Integer> frequencyChanges = Collections.singletonList(0);
-        int frequency = Day1.calculateFrequency(frequencyChanges);
-        assertThat(frequency, is(0));
+    public void testPart2() {
+        List<Integer> frequencyChanges = Arrays.asList(+1, -1);
+        int firstFrequencyToBeReachedTwice = Day1.part2(frequencyChanges);
+        assertThat(firstFrequencyToBeReachedTwice, is(0));
+
+        frequencyChanges = Arrays.asList(+3, +3, +4, -2, -4);
+        firstFrequencyToBeReachedTwice = Day1.part2(frequencyChanges);
+        assertThat(firstFrequencyToBeReachedTwice, is(10));
+
+        frequencyChanges = Arrays.asList(-6, +3, +8, +5, -6);
+        firstFrequencyToBeReachedTwice = Day1.part2(frequencyChanges);
+        assertThat(firstFrequencyToBeReachedTwice, is(5));
+
+        frequencyChanges = Arrays.asList(+7, +7, -2, -7, -4);
+        firstFrequencyToBeReachedTwice = Day1.part2(frequencyChanges);
+        assertThat(firstFrequencyToBeReachedTwice, is(14));
     }
 }
