@@ -3,10 +3,13 @@ package org.cesartxt.adventofcode;
 import java.util.*;
 
 class Day4 {
-    static int solve(List<Record> recordList) {
+    static Solution solve(List<Record> recordList) {
         List<Guard> guardList = buildGuardList(recordList);
         Guard sleepiestGuard = determineSleepiestGuard(guardList);
-        return sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
+        int part1Answer = sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
+        Guard guardMostFrequentlyAsleepSameMinute = determineGuardMostFrequentlyAsleepSameMinute(guardList);
+        int part2Answer = guardMostFrequentlyAsleepSameMinute.getMinuteWithMoreSleep() * guardMostFrequentlyAsleepSameMinute.id;
+        return new Solution(part1Answer, part2Answer);
     }
 
     private static List<Guard> buildGuardList(List<Record> recordList) {
@@ -44,6 +47,29 @@ class Day4 {
             }
         }
         return sleepiestGuard;
+    }
+
+    private static Guard determineGuardMostFrequentlyAsleepSameMinute(List<Guard> guardList) {
+        Guard guardMostFrequentlyAsleepSameMinute = null;
+        int record = -1;
+        for (Guard guard : guardList) {
+            int guardRecordSleepSameMinute = guard.getCountForMinuteWithMoreSleep();
+            if (guardRecordSleepSameMinute > record) {
+                record = guardRecordSleepSameMinute;
+                guardMostFrequentlyAsleepSameMinute = guard;
+            }
+        }
+        return guardMostFrequentlyAsleepSameMinute;
+    }
+
+    static class Solution {
+        final int part1Answer;
+        final int part2Answer;
+
+        Solution(int part1Answer, int part2Answer) {
+            this.part1Answer = part1Answer;
+            this.part2Answer = part2Answer;
+        }
     }
 
     static class Record {
@@ -123,6 +149,10 @@ class Day4 {
                 }
             }
             return minuteWithMoreSleep;
+        }
+
+        int getCountForMinuteWithMoreSleep() {
+            return minuteOfHourAsleepCount[getMinuteWithMoreSleep()];
         }
 
         void registerSleepMinutes(int sleepStart, int sleepEnd) {

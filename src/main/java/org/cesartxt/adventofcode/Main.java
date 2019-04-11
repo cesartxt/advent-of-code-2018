@@ -45,9 +45,14 @@ public class Main {
         System.out.println("Running Solution for Day 4");
         System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
         List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
-        int answer = Day4.solve(input);
+        Day4.Solution answer = Day4.solve(input);
         System.out.println("Answer Problem Day 4:");
-        System.out.println(answer);
+        System.out.println("Part 1:");
+        int part1Answer = answer.part1Answer;
+        System.out.println(part1Answer);
+        System.out.println("Part 2:");
+        int part2Answer = answer.part2Answer;
+        System.out.println(part2Answer);
         System.out.println("--------------------");
     }
 
