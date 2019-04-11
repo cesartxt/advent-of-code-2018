@@ -7,8 +7,8 @@ class Day4 {
         List<Guard> guardList = buildGuardList(recordList);
         Guard sleepiestGuard = determineSleepiestGuard(guardList);
         int part1Answer = sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
-        Guard guardMostFrequentlyAsleepSameMinute = determineGuardMostFrequentlyAsleepSameMinute(guardList);
-        int part2Answer = guardMostFrequentlyAsleepSameMinute.getMinuteWithMoreSleep() * guardMostFrequentlyAsleepSameMinute.id;
+        Guard guardMostAsleepSameMinute = determineGuardMostAsleepSameMinute(guardList);
+        int part2Answer = guardMostAsleepSameMinute.getMinuteWithMoreSleep() * guardMostAsleepSameMinute.id;
         return new Solution(part1Answer, part2Answer);
     }
 
@@ -49,7 +49,7 @@ class Day4 {
         return sleepiestGuard;
     }
 
-    private static Guard determineGuardMostFrequentlyAsleepSameMinute(List<Guard> guardList) {
+    private static Guard determineGuardMostAsleepSameMinute(List<Guard> guardList) {
         Guard guardMostFrequentlyAsleepSameMinute = null;
         int record = -1;
         for (Guard guard : guardList) {
