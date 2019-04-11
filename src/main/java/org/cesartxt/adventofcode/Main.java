@@ -21,10 +21,10 @@ public class Main {
         System.out.println("Reading input for puzzle of Day 1: src/main/resources/day-1-puzzle-input.txt");
         List<Integer> input = readIntegersFromFile("src/main/resources/day-1-puzzle-input.txt");
         System.out.println("Answers Problem Day 1:");
-        System.out.println("Part 1:");
+        System.out.println("Day 1 Part 1 answer:");
         int part1Answer = Day1.part1(input);
         System.out.println(part1Answer);
-        System.out.println("Part 2:");
+        System.out.println("Day 1 Part 2 answer:");
         int part2Answer = Day1.part2(input);
         System.out.println(part2Answer);
         System.out.println("--------------------");
@@ -46,11 +46,10 @@ public class Main {
         System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-4-puzzle-input.txt");
         List<Day4.Record> input = readRecordsFromFile("src/main/resources/day-4-puzzle-input.txt");
         Day4.Solution answer = Day4.solve(input);
-        System.out.println("Answer Problem Day 4:");
-        System.out.println("Part 1:");
+        System.out.println("Day 4 Part 1 answer:");
         int part1Answer = answer.part1Answer;
         System.out.println(part1Answer);
-        System.out.println("Part 2:");
+        System.out.println("Day 4 Part 2 answer:");
         int part2Answer = answer.part2Answer;
         System.out.println(part2Answer);
         System.out.println("--------------------");
@@ -79,9 +78,13 @@ public class Main {
         System.out.println("Running Solution for Day 10");
         System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-10-puzzle-input.txt");
         Day10.PointSet input = readPointsFromFile("src/main/resources/day-10-puzzle-input.txt");
-        String answer = Day10.solve(input);
-        System.out.println("Answer Problem Day 10:");
-        System.out.println(answer);
+        Day10.Solution answer = Day10.solve(input);
+        System.out.println("Day 10 Part 1 answer:");
+        String part1Answer = answer.part1Answer;
+        System.out.println(part1Answer);
+        System.out.println("Day 10 Part 2 answer:");
+        int part2Answer = answer.part2Answer;
+        System.out.println(part2Answer);
         System.out.println("--------------------");
     }
 

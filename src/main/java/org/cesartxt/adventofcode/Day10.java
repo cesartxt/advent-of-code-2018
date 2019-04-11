@@ -3,11 +3,23 @@ package org.cesartxt.adventofcode;
 import java.util.*;
 
 class Day10 {
-    static String solve(PointSet pointSet) {
+    static Solution solve(PointSet pointSet) {
+        int currentMinute = 0;
         while (pointSet.getMessage() == null) {
             pointSet.movePoints();
+            currentMinute++;
         }
-        return pointSet.getMessage();
+        return new Solution(pointSet.getMessage(), currentMinute);
+    }
+
+    static class Solution {
+        final String part1Answer;
+        final int part2Answer;
+
+        Solution(String part1Answer, int part2Answer) {
+            this.part1Answer = part1Answer;
+            this.part2Answer = part2Answer;
+        }
     }
 
     static class PointSet {
