@@ -1,4 +1,4 @@
-# Advent of code
+# Advent of code 2018
 
 Solutions for some of the 'Advent of Code' 2018 edition puzzles.
 
