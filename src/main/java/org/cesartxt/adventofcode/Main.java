@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         runSolutionDay1();
         runSolutionDay4();
+        runSolutionDay10();
     }
 
     private static void runSolutionDay1() throws FileNotFoundException {
@@ -51,17 +52,48 @@ public class Main {
         File file = new File(pathName);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String recordAsString = scanner.nextLine();
-                //Example record: [1518-11-02 23:56] Guard #3463 begins shift
-                int year = Integer.parseInt(recordAsString.substring(1, 5));
-                int month = Integer.parseInt(recordAsString.substring(6, 8));
-                int day = Integer.parseInt(recordAsString.substring(9, 11));
-                int hour = Integer.parseInt(recordAsString.substring(12, 14));
-                int minutes = Integer.parseInt(recordAsString.substring(15, 17));
-                String statement = recordAsString.substring(19);
+                String recordAsString = scanner.nextLine(); //Example record: [1518-11-02 23:56] Guard #3463 begins shift
+                String regex = "^\\[(\\d+)-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2})] (.+)$";
+                int year = Integer.parseInt(recordAsString.replaceAll(regex, "$1"));
+                int month = Integer.parseInt(recordAsString.replaceAll(regex, "$2"));
+                int day = Integer.parseInt(recordAsString.replaceAll(regex, "$3"));
+                int hour = Integer.parseInt(recordAsString.replaceAll(regex, "$4"));
+                int minutes = Integer.parseInt(recordAsString.replaceAll(regex, "$5"));
+                String statement = recordAsString.replaceAll(regex, "$6");
                 recordList.add(new Day4.Record(year, month, day, hour, minutes, statement));
             }
         }
         return recordList;
+    }
+
+    private static void runSolutionDay10() throws FileNotFoundException {
+        System.out.println("Running Solution for Day 10");
+        System.out.println("Reading input for puzzle of Day 4: src/main/resources/day-10-puzzle-input.txt");
+        Day10.PointSet input = readPointsFromFile("src/main/resources/day-10-puzzle-input.txt");
+        String answer = Day10.solve(input);
+        System.out.println("Answer Problem Day 10:");
+        System.out.println(answer);
+        System.out.println("--------------------");
+    }
+
+    private static Day10.PointSet readPointsFromFile(String pathName) throws FileNotFoundException {
+        Day10.PointSet pointSet = new Day10.PointSet();
+        File file = new File(pathName);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                pointSet.add(createPoint(line));
+            }
+        }
+        return pointSet;
+    }
+
+    private static Day10.Point createPoint(String line) {
+        String regex = "^position=<\\s*(-?\\d+),\\s*(-?\\d+)>\\s*velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>$";
+        int xPosition = Integer.parseInt(line.replaceAll(regex, "$1"));
+        int yPosition = Integer.parseInt(line.replaceAll(regex, "$2"));
+        int xVelocity = Integer.parseInt(line.replaceAll(regex, "$3"));
+        int yVelocity = Integer.parseInt(line.replaceAll(regex, "$4"));
+        return new Day10.Point(xPosition, yPosition, xVelocity, yVelocity);
     }
 }
