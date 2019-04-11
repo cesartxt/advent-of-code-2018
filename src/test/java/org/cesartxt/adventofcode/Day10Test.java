@@ -41,6 +41,13 @@ public class Day10Test {
         pointSet.add(new Day10.Point(14, 7, -2, 0));
         pointSet.add(new Day10.Point(-3, 6, 2, -1));
 
-        assertEquals("*", Day10.solve(pointSet));
+        assertEquals("#   #  ###\n" +
+                "#   #   # \n" +
+                "#   #   # \n" +
+                "#####   # \n" +
+                "#   #   # \n" +
+                "#   #   # \n" +
+                "#   #   # \n" +
+                "#   #  ###\n", Day10.solve(pointSet));
     }
 }
