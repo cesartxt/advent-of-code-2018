@@ -11,16 +11,6 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
     }
 
     @Override
-    Solution<Integer, Integer> solve(List<Record> input) {
-        List<Guard> guardList = buildGuardList(input);
-        Guard sleepiestGuard = determineSleepiestGuard(guardList);
-        int part1Answer = sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
-        Guard guardMostAsleepSameMinute = determineGuardMostAsleepSameMinute(guardList);
-        int part2Answer = guardMostAsleepSameMinute.getMinuteWithMoreSleep() * guardMostAsleepSameMinute.id;
-        return new Solution<>(part1Answer, part2Answer);
-    }
-
-    @Override
     protected List<Record> readInput() throws FileNotFoundException {
         List<Day4.Record> recordList = new ArrayList<>();
         File file = new File(getInputFilePath());
@@ -38,6 +28,16 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
             }
         }
         return recordList;
+    }
+
+    @Override
+    Solution<Integer, Integer> solve(List<Record> input) {
+        List<Guard> guardList = buildGuardList(input);
+        Guard sleepiestGuard = determineSleepiestGuard(guardList);
+        int part1Answer = sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
+        Guard guardMostAsleepSameMinute = determineGuardMostAsleepSameMinute(guardList);
+        int part2Answer = guardMostAsleepSameMinute.getMinuteWithMoreSleep() * guardMostAsleepSameMinute.id;
+        return new Solution<>(part1Answer, part2Answer);
     }
 
     private static List<Guard> buildGuardList(List<Record> recordList) {

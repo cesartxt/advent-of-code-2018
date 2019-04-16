@@ -10,16 +10,6 @@ class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
     }
 
     @Override
-    Solution<String, Integer> solve(PointSet input) {
-        int currentMinute = 0;
-        while (input.getMessage() == null) {
-            input.movePoints();
-            currentMinute++;
-        }
-        return new Solution<>(input.getMessage(), currentMinute);
-    }
-
-    @Override
     protected PointSet readInput() throws FileNotFoundException {
         Day10.PointSet pointSet = new Day10.PointSet();
         File file = new File(getInputFilePath());
@@ -30,6 +20,16 @@ class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
             }
         }
         return pointSet;
+    }
+
+    @Override
+    Solution<String, Integer> solve(PointSet input) {
+        int currentMinute = 0;
+        while (input.getMessage() == null) {
+            input.movePoints();
+            currentMinute++;
+        }
+        return new Solution<>(input.getMessage(), currentMinute);
     }
 
     private static Day10.Point createPoint(String line) {
