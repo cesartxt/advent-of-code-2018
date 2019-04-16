@@ -25,20 +25,24 @@ class Day1 extends Puzzle<List<Integer>, Integer, Integer> {
     Solution<Integer, Integer> solve(List<Integer> input) {
         int currentFrequency = 0;
         Integer frequencyAfterFirstLoop = null;
-        Integer firstFrequencyToBeSeenTwice = null;
+        /*
+         * There could be cases when there is no frequency seen twice (example, if the input is [+1]). Here, it is
+         * assumed that this code is not going to receive that kind of input
+         */
+        Integer firstFrequencySeenTwice = null;
         Set<Integer> seenFrequencies = new HashSet<>();
-        while (frequencyAfterFirstLoop == null || firstFrequencyToBeSeenTwice == null) {
+        while (frequencyAfterFirstLoop == null || firstFrequencySeenTwice == null) {
             for (int change : input) {
                 seenFrequencies.add(currentFrequency);
                 currentFrequency += change;
-                if (seenFrequencies.contains(currentFrequency) && firstFrequencyToBeSeenTwice == null) {
-                    firstFrequencyToBeSeenTwice = currentFrequency;
+                if (seenFrequencies.contains(currentFrequency) && firstFrequencySeenTwice == null) {
+                    firstFrequencySeenTwice = currentFrequency;
                 }
             }
             if (frequencyAfterFirstLoop == null) {
                 frequencyAfterFirstLoop = currentFrequency;
             }
         }
-        return new Solution<>(frequencyAfterFirstLoop, firstFrequencyToBeSeenTwice);
+        return new Solution<>(frequencyAfterFirstLoop, firstFrequencySeenTwice);
     }
 }
