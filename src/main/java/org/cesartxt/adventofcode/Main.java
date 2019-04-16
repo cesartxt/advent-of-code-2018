@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
  */
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        printAnswers(Day1.init());
-        printAnswers(Day4.init());
-        printAnswers(Day10.init());
+        printAnswers(new Day1("src/main/resources/day-1-puzzle-input.txt"));
+        printAnswers(new Day4("src/main/resources/day-4-puzzle-input.txt"));
+        printAnswers(new Day10("src/main/resources/day-10-puzzle-input.txt"));
     }
 
     static <T, S, U> void printAnswers(Puzzle<T, S, U> puzzle) throws FileNotFoundException {

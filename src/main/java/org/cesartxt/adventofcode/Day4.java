@@ -5,12 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
-    private Day4() {
-        super(4, "src/main/resources/day-4-puzzle-input.txt");
-    }
-
-    static Day4 init() {
-        return new Day4();
+    Day4(String inputFilePath) {
+        super(4, inputFilePath);
     }
 
     @Override
