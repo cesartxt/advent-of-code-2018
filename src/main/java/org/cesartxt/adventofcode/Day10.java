@@ -1,25 +1,48 @@
 package org.cesartxt.adventofcode;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
-class Day10 {
-    static Solution solve(PointSet pointSet) {
-        int currentMinute = 0;
-        while (pointSet.getMessage() == null) {
-            pointSet.movePoints();
-            currentMinute++;
-        }
-        return new Solution(pointSet.getMessage(), currentMinute);
+class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
+    private Day10() {
+        super(1, "src/main/resources/day-10-puzzle-input.txt");
     }
 
-    static class Solution {
-        final String part1Answer;
-        final int part2Answer;
+    static Day10 init() {
+        return new Day10();
+    }
 
-        Solution(String part1Answer, int part2Answer) {
-            this.part1Answer = part1Answer;
-            this.part2Answer = part2Answer;
+    @Override
+    Solution<String, Integer> solve(PointSet input) {
+        int currentMinute = 0;
+        while (input.getMessage() == null) {
+            input.movePoints();
+            currentMinute++;
         }
+        return new Solution<>(input.getMessage(), currentMinute);
+    }
+
+    @Override
+    protected PointSet readInput(String inputFilePath) throws FileNotFoundException {
+        Day10.PointSet pointSet = new Day10.PointSet();
+        File file = new File(inputFilePath);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                pointSet.add(createPoint(line));
+            }
+        }
+        return pointSet;
+    }
+
+    private static Day10.Point createPoint(String line) {
+        String regex = "^position=<\\s*(-?\\d+),\\s*(-?\\d+)>\\s*velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>$";
+        int xPosition = Integer.parseInt(line.replaceAll(regex, "$1"));
+        int yPosition = Integer.parseInt(line.replaceAll(regex, "$2"));
+        int xVelocity = Integer.parseInt(line.replaceAll(regex, "$3"));
+        int yVelocity = Integer.parseInt(line.replaceAll(regex, "$4"));
+        return new Day10.Point(xPosition, yPosition, xVelocity, yVelocity);
     }
 
     static class PointSet {

@@ -1,15 +1,46 @@
 package org.cesartxt.adventofcode;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
-class Day4 {
-    static Solution solve(List<Record> recordList) {
-        List<Guard> guardList = buildGuardList(recordList);
+class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
+    private Day4() {
+        super(4, "src/main/resources/day-4-puzzle-input.txt");
+    }
+
+    static Day4 init() {
+        return new Day4();
+    }
+
+    @Override
+    Solution<Integer, Integer> solve(List<Record> input) {
+        List<Guard> guardList = buildGuardList(input);
         Guard sleepiestGuard = determineSleepiestGuard(guardList);
         int part1Answer = sleepiestGuard.getMinuteWithMoreSleep() * sleepiestGuard.id;
         Guard guardMostAsleepSameMinute = determineGuardMostAsleepSameMinute(guardList);
         int part2Answer = guardMostAsleepSameMinute.getMinuteWithMoreSleep() * guardMostAsleepSameMinute.id;
-        return new Solution(part1Answer, part2Answer);
+        return new Solution<>(part1Answer, part2Answer);
+    }
+
+    @Override
+    protected List<Record> readInput(String inputFilePath) throws FileNotFoundException {
+        List<Day4.Record> recordList = new ArrayList<>();
+        File file = new File(inputFilePath);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String recordAsString = scanner.nextLine(); //Example record: [1518-11-02 23:56] Guard #3463 begins shift
+                String regex = "^\\[(\\d+)-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2})] (.+)$";
+                int year = Integer.parseInt(recordAsString.replaceAll(regex, "$1"));
+                int month = Integer.parseInt(recordAsString.replaceAll(regex, "$2"));
+                int day = Integer.parseInt(recordAsString.replaceAll(regex, "$3"));
+                int hour = Integer.parseInt(recordAsString.replaceAll(regex, "$4"));
+                int minutes = Integer.parseInt(recordAsString.replaceAll(regex, "$5"));
+                String statement = recordAsString.replaceAll(regex, "$6");
+                recordList.add(new Day4.Record(year, month, day, hour, minutes, statement));
+            }
+        }
+        return recordList;
     }
 
     private static List<Guard> buildGuardList(List<Record> recordList) {
@@ -60,16 +91,6 @@ class Day4 {
             }
         }
         return guardMostFrequentlyAsleepSameMinute;
-    }
-
-    static class Solution {
-        final int part1Answer;
-        final int part2Answer;
-
-        Solution(int part1Answer, int part2Answer) {
-            this.part1Answer = part1Answer;
-            this.part2Answer = part2Answer;
-        }
     }
 
     static class Record {
