@@ -14,10 +14,17 @@ The Main class located in  `src/main/java/org/cesartxt/adventofcode` runs all th
 The solutions are coded in Java. You should have installed JDK 8 or a superior version to execute them.
 
 ### Mac/Linux Instructions
+To run the puzzles using the input files:
 Run `./gradlew run` in Terminal/shell from the project directory
 
-### Windows Instructions
- Run `.\gradlew.bat run` in a command prompt from the project directory
+To run the unit tests:
+Run `.\gradlew test`
 
+### Windows Instructions
+To run the puzzles using the input files:
+Run `.\gradlew.bat run` in a command prompt from the project directory
+
+To run the unit tests:
+Run `.\gradlew.bat test` 
 
 The above instructions execute the `Main` java class located in `src/main/java/org/cesartxt/adventofcode` and run all the solved puzzles.
