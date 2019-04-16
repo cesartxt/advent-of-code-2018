@@ -3,6 +3,7 @@ package org.cesartxt.adventofcode;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.stream.IntStream;
 
 class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
     Day4(String inputFilePath) {
@@ -131,11 +132,7 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
         }
 
         int calculateTotalMinutesAsleep() {
-            int totalMinutesAsleep = 0;
-            for (int minutes : minuteOfHourAsleepCount) {
-                totalMinutesAsleep += minutes;
-            }
-            return totalMinutesAsleep;
+            return IntStream.of(minuteOfHourAsleepCount).sum();
         }
 
         int getMinuteWithMoreSleep() {
