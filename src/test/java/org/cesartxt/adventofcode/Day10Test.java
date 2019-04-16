@@ -41,7 +41,7 @@ public class Day10Test {
         pointSet.add(new Day10.Point(14, 7, -2, 0));
         pointSet.add(new Day10.Point(-3, 6, 2, -1));
 
-        Day10.Solution solution = Day10.solve(pointSet);
+        Solution solution = new Day10(null).solve(pointSet);
         assertEquals("#   #  ###\n" +
                 "#   #   # \n" +
                 "#   #   # \n" +
@@ -49,7 +49,7 @@ public class Day10Test {
                 "#   #   # \n" +
                 "#   #   # \n" +
                 "#   #   # \n" +
-                "#   #  ###\n", solution.part1Answer);
-        assertEquals(3,  solution.part2Answer);
+                "#   #  ###\n", solution.getPart1Answer());
+        assertEquals(3,  solution.getPart2Answer());
     }
 }

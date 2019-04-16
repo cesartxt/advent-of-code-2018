@@ -10,9 +10,9 @@ import static org.junit.Assert.assertEquals;
 public class Day4Test {
     @Test
     public void test0() {
-        Day4.Solution solution = Day4.solve(buildTestInput());
-        assertEquals(10, solution.part1Answer);//Expected answer is 10 because Guard 1 is the sleepiest and sleeps more in minute 10 (1 * 10)
-        assertEquals(116, solution.part2Answer);//Expected answer is 118 because Guard 2 sleeps more in minute 58 (2 * 58)
+        Solution solution =  new Day4(null).solve(buildTestInput());
+        assertEquals(10, solution.getPart1Answer());//Expected answer is 10 because Guard 1 is the sleepiest and sleeps more in minute 10 (1 * 10)
+        assertEquals(116, solution.getPart2Answer());//Expected answer is 118 because Guard 2 sleeps more in minute 58 (2 * 58)
     }
 
     private List<Day4.Record> buildTestInput() {

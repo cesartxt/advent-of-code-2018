@@ -10,11 +10,6 @@ class Day1 extends Puzzle<List<Integer>, Integer, Integer> {
     }
 
     @Override
-    Solution<Integer, Integer> solve(List<Integer> input) {
-        return new Solution<>(part1(input), part2(input));
-    }
-
-    @Override
     protected List<Integer> readInput() throws FileNotFoundException {
         List<Integer> integerList = new ArrayList<>();
         File file = new File(getInputFilePath());
@@ -26,25 +21,24 @@ class Day1 extends Puzzle<List<Integer>, Integer, Integer> {
         return integerList;
     }
 
-    static int part1(List<Integer> changes) {
-        int frequency = 0;
-        for (int change : changes) {
-            frequency += change;
-        }
-        return frequency;
-    }
-
-    static int part2(List<Integer> changes) {
-        int frequency = 0;
+    @Override
+    Solution<Integer, Integer> solve(List<Integer> input) {
+        int currentFrequency = 0;
+        Integer frequencyAfterFirstLoop = null;
+        Integer firstFrequencyToBeSeenTwice = null;
         Set<Integer> seenFrequencies = new HashSet<>();
-        while (true) {
-            for (int change : changes) {
-                seenFrequencies.add(frequency);
-                frequency += change;
-                if (seenFrequencies.contains(frequency)) {
-                    return frequency;
+        while (frequencyAfterFirstLoop == null || firstFrequencyToBeSeenTwice == null) {
+            for (int change : input) {
+                seenFrequencies.add(currentFrequency);
+                currentFrequency += change;
+                if (seenFrequencies.contains(currentFrequency) && firstFrequencyToBeSeenTwice == null) {
+                    firstFrequencyToBeSeenTwice = currentFrequency;
                 }
             }
+            if (frequencyAfterFirstLoop == null) {
+                frequencyAfterFirstLoop = currentFrequency;
+            }
         }
+        return new Solution<>(frequencyAfterFirstLoop, firstFrequencyToBeSeenTwice);
     }
 }
