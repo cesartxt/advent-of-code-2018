@@ -19,9 +19,9 @@ class Day1 extends Puzzle<List<Integer>, Integer, Integer> {
     }
 
     @Override
-    protected List<Integer> readInput(String s) throws FileNotFoundException {
+    protected List<Integer> readInput() throws FileNotFoundException {
         List<Integer> integerList = new ArrayList<>();
-        File file = new File(s);
+        File file = new File(getInputFilePath());
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 integerList.add(scanner.nextInt());

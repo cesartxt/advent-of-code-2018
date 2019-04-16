@@ -24,9 +24,9 @@ class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
     }
 
     @Override
-    protected PointSet readInput(String inputFilePath) throws FileNotFoundException {
+    protected PointSet readInput() throws FileNotFoundException {
         Day10.PointSet pointSet = new Day10.PointSet();
-        File file = new File(inputFilePath);
+        File file = new File(getInputFilePath());
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

@@ -24,9 +24,9 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
     }
 
     @Override
-    protected List<Record> readInput(String inputFilePath) throws FileNotFoundException {
+    protected List<Record> readInput() throws FileNotFoundException {
         List<Day4.Record> recordList = new ArrayList<>();
-        File file = new File(inputFilePath);
+        File file = new File(getInputFilePath());
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String recordAsString = scanner.nextLine(); //Example record: [1518-11-02 23:56] Guard #3463 begins shift
