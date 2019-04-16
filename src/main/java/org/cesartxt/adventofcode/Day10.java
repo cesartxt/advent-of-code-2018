@@ -6,7 +6,7 @@ import java.util.*;
 
 class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
     Day10(String filePathName) {
-        super(1, filePathName);
+        super(10, filePathName);
     }
 
     @Override
