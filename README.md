@@ -18,13 +18,13 @@ To run the puzzles using the input files:
 Run `./gradlew run` in Terminal/shell from the project directory
 
 To run the unit tests:
-Run `.\gradlew test`
+Run `./gradlew test`
 
 ### Windows Instructions
 To run the puzzles using the input files:
-Run `.\gradlew.bat run` in a command prompt from the project directory
+Run `./gradlew.bat run` in a command prompt from the project directory
 
 To run the unit tests:
-Run `.\gradlew.bat test` 
+Run `./gradlew.bat test` 
 
 The above instructions execute the `Main` java class located in `src/main/java/org/cesartxt/adventofcode` and run all the solved puzzles.
