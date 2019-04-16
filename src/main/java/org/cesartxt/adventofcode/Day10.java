@@ -22,6 +22,15 @@ class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
         return pointSet;
     }
 
+    private static Day10.Point createPoint(String line) {
+        String regex = "^position=<\\s*(-?\\d+),\\s*(-?\\d+)>\\s*velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>$";
+        int xPosition = Integer.parseInt(line.replaceAll(regex, "$1"));
+        int yPosition = Integer.parseInt(line.replaceAll(regex, "$2"));
+        int xVelocity = Integer.parseInt(line.replaceAll(regex, "$3"));
+        int yVelocity = Integer.parseInt(line.replaceAll(regex, "$4"));
+        return new Day10.Point(xPosition, yPosition, xVelocity, yVelocity);
+    }
+
     @Override
     Solution<String, Integer> solve(PointSet input) {
         int currentMinute = 0;
@@ -30,15 +39,6 @@ class Day10 extends Puzzle<Day10.PointSet, String, Integer> {
             currentMinute++;
         }
         return new Solution<>(input.getMessage(), currentMinute);
-    }
-
-    private static Day10.Point createPoint(String line) {
-        String regex = "^position=<\\s*(-?\\d+),\\s*(-?\\d+)>\\s*velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>$";
-        int xPosition = Integer.parseInt(line.replaceAll(regex, "$1"));
-        int yPosition = Integer.parseInt(line.replaceAll(regex, "$2"));
-        int xVelocity = Integer.parseInt(line.replaceAll(regex, "$3"));
-        int yVelocity = Integer.parseInt(line.replaceAll(regex, "$4"));
-        return new Day10.Point(xPosition, yPosition, xVelocity, yVelocity);
     }
 
     static class PointSet {
