@@ -68,16 +68,7 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
     }
 
     private static Guard determineGuardMostAsleepSameMinute(List<Guard> guardList) {
-        Guard guardMostFrequentlyAsleepSameMinute = null;
-        int record = -1;
-        for (Guard guard : guardList) {
-            int guardRecordSleepSameMinute = guard.getCountForMinuteWithMoreSleep();
-            if (guardRecordSleepSameMinute > record) {
-                record = guardRecordSleepSameMinute;
-                guardMostFrequentlyAsleepSameMinute = guard;
-            }
-        }
-        return guardMostFrequentlyAsleepSameMinute;
+        return Collections.max(guardList, Comparator.comparing(Guard::getCountForMinuteWithMoreSleep));
     }
 
     static class Record {
