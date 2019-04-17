@@ -113,8 +113,7 @@ class Day4 extends Puzzle<List<Day4.Record>, Integer, Integer> {
             if (!indicatesGuardIsBeggingShift()) {
                 throw new IllegalArgumentException("Record statement doesn't indicate when a guard starts his/her shift");
             }
-            String[] statementTokens = statement.split("\\s");
-            String guardIdAsString = statementTokens[1].substring(1); // Guard id is the second token of the statement. Removing first character from it that is a '#'
+            String guardIdAsString = statement.replaceAll("^Guard #(\\d+) begins shift$", "$1");
             return Integer.parseInt(guardIdAsString);
         }
 
